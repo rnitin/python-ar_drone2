@@ -65,11 +65,11 @@ class controle(threading.Thread):
                         print "Take Off !"
                         drone.takeoff()
                     # Land
-                    elif event.button == 13:
+                    elif event.button == 6:
                         print "Land !"
                         drone.land()
                     # Stop and land
-                    elif event.button == 6:
+                    elif event.button == 10: #pending
                         print "Stop and Land !"
                         drone.land()
                         running = False
@@ -79,7 +79,7 @@ class controle(threading.Thread):
                         drone.speed = 1
                         drone.move_up()
                     # Altitude Down
-                    elif event.button == 2:
+                    elif event.button == 0:
                         print "Altitude Down"
                         drone.speed = 1
                         drone.move_down()
@@ -88,27 +88,27 @@ class controle(threading.Thread):
                         print "Emergency !"
                         drone.reset()
                         
-                    # Anim : Boom !
+                    # Anim : Boom !	#pending
                     elif event.button == 0:
                         print "Anim : Boom !"
                         drone.event_boom()
                         
-                    # Anim : Turnarround !
+                    # Anim : Turnarround !	#pending
                     elif event.button == 4:
                         print "Anim : Turnarround !"
                         drone.event_turnarround()  
 
-                    # Anim : Yaw Shake !
+                    # Anim : Yaw Shake !	#pending
                     elif event.button == 9:
                         print "Anim : Yaw Shake !"
                         drone.event_yawshake()
                         
-                    # Anim : Yaw Dance !
+                    # Anim : Yaw Dance !	#pending
                     elif event.button == 8:
                         print "Anim : Yaw Dance !"
                         drone.event_yawdance()
                         
-                    # Anim : ThetaMixed !
+                    # Anim : ThetaMixed !	#pending
                     elif event.button == 5:
                         print "Anim : ThetaMixed !"
                         drone.event_thetamixed()
@@ -121,71 +121,71 @@ class controle(threading.Thread):
                         drone.speed = 0
                         drone.hover()
                     # Altitude Down
-                    elif event.button == 2:
+                    elif event.button == 0:
                         print "Altitude Down STOP !"
                         drone.speed = 0
                         drone.hover()
                     
                             
                 if event.type == pygame.JOYAXISMOTION:
-                    # Axe 0 / Gauche - Droite
+                    # Axis 0 / Left - Right
                     if event.axis == 0:
                         if event.value < 0:
                             if round(event.value*-1,1) != move_left:
-                                # Axe 0 / Gauche
-                                print "Axe 0 / Gauche"
+                                # Axis 0 / Left
+                                print "Axis 0 / Left"
                                 print "Speed" + " : " + str(round(event.value*-1,1))
                                 move_left = round(event.value*-1,1);
                                 drone.speed = round(event.value*-1,1)
                                 drone.move_left()
                         elif event.value > 0:
                             if round(event.value,1) != move_right:
-                                # Axe 0 / Droite
-                                print "Axe 0 / Droite"
+                                # Axis 0 / Right
+                                print "Axis 0 / Right"
                                 print "Speed" + " : " + str(round(event.value,1))
                                 move_right = round(event.value,1)
                                 drone.speed = round(event.value,1)
                                 drone.move_right()
                         
-                    # Axe 1 / Avance - Recule
+                    # Axe 1 / Forward - Backward
                     elif event.axis == 1:
                         if event.value < 0:
                             if round(event.value*-1,1) != move_forward:
-                                # Axe 1 / Avance
-                                print "Axe 1 / Avance"
+                                # Axis 1 / Forward
+                                print "Axis 1 / Forward"
                                 print "Speed" + " : " + str(round(event.value*-1,1))
                                 move_forward = round(event.value*-1,1)
                                 drone.speed = round(event.value*-1,1)
                                 drone.move_forward()
                         elif event.value > 0:
                             if round(event.value,1) != move_backward:
-                                # Axe 1 / Recule
-                                print "Axe 1 / Recule"
+                                # Axis 1 / Backward
+                                print "Axis 1 / Backward"
                                 print "Speed" + " : " + str(round(event.value,1))
                                 move_backward = round(event.value,1)
                                 drone.speed = round(event.value,1)
                                 drone.move_backward()
                         
-                    # Axe 2 / Lacet
-                    elif event.axis == 2:
+                    # Axis 3 / Yaw
+                    elif event.axis == 3:
                         if round(event.value*1,0) > 0:
                             if round(event.value*1,0) != turn:
-                                # Axe 2 / Lacet Droite
-                                print "Axe 2 / Lacet Droite" + " : " + str(round(event.value*1,0))
+                                # Axis 3 / Yaw Right
+                                print "Axis 3 / Yaw Right" + " : " + str(round(event.value*1,0))
                                 turn = round(event.value*1,0)
                                 drone.speed = 1
                                 drone.turn_right()
                         elif round(event.value*-1,0) > 0:
                             if round(event.value*-1,0) != turn:
-                                # Axe 1 / Lacet Gauche
-                                print "Axe 2 / Lacet Gauche" + " : " + str(round(event.value*-1,0))
+                                # Axe 3 / Yaw left
+                                print "Axis 3 / Yaw Left" + " : " + str(round(event.value*-1,0))
                                 turn = round(event.value*-1,0)
                                 drone.speed = 1
                                 drone.turn_left()
                         elif round(event.value*1,0) == 0:
                             if round(event.value*1,0) != turn:
-                                # Axe 1 / Stop lacet
-                                print "Axe 2 / Stop Lacet" + " : " + str(round(event.value*1,0))
+                                # Axe 3 / Stop Yaw
+                                print "Axis 3 / Stop Yaw" + " : " + str(round(event.value*1,0))
                                 turn = round(event.value*1,0)
                                 drone.speed = 0
                                 drone.hover()
@@ -200,7 +200,7 @@ class controle(threading.Thread):
     
 if __name__ == '__main__':
     try:
-        # Controle
+        # Control
         controle = controle('Thread Controle')
         controle.start()
         time.sleep(5)

@@ -572,4 +572,3 @@ def decode_navdata(packet):
                 values[i] = int(values[i] / 1000)
         data[id_nr] = values
     return data, has_flying_information
-
